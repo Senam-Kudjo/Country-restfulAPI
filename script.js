@@ -12,6 +12,9 @@ let gc1;
 let gc2;
 searchButton.addEventListener("click", function () {
   let countryName = countryInput.value;
+  container.style.background = "white";
+  container2.style.background = "white";
+
   let finalURL = `https://restcountries.com/v3.1/name/${countryName}?fullText=true`;
   console.log(finalURL);
   fetch(finalURL)
@@ -85,6 +88,8 @@ searchButton.addEventListener("click", function () {
     let countryName2 = countryInput2.value;
     let finalURL2 = `https://restcountries.com/v3.1/name/${countryName2}?fullText=true`;
     console.log(finalURL2);
+    container.style.background = "white";
+    container2.style.background = "white";
     fetch(finalURL2)
       .then((response) => response.json())
       .then((data) => {
@@ -93,10 +98,16 @@ searchButton.addEventListener("click", function () {
         compareButton.addEventListener("click", function () {
           if (gc1 > gc2) {
             container.style.backgroundColor = "red";
-            gc1 = "";
-          } else {
+            container2.style.background = "white";
+            countryInput.value = "";
+            countryInput2.value = "";
+          } else if (gc2 > gc1) {
+            container.style.backgroundColor = "white";
             container2.style.background = "yellow";
-            gc2 = "";
+            console.log(gc1);
+            console.log(gc2);
+            countryInput.value = "";
+            countryInput2.value = "";
           }
         });
         //   console.log(data[0].capital[0]);
@@ -158,7 +169,5 @@ searchButton.addEventListener("click", function () {
           result.innerHTML = `<h3>Please enter a valid country name. </h3>`;
         }
       });
-    console.log(gc1);
-    console.log(gc2);
   });
 });
